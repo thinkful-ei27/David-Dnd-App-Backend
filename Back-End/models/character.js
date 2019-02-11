@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const characterSchema = new mongoose.Schema({
+const characterSchema = new mongoose.Schema({ 
   name: { type: String, required: true},
   characterClass :{ type: String, required: true },
   race: { type: String, required: true },

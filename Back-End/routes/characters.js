@@ -5,7 +5,7 @@ const Character = require('../models/character');
 const router = express.Router();
 const jsonParser = bodyParser.json();
 
-router.get('/', (req, res, next) => {
+router.get('/', jsonParser, (req, res, next) => {
   const userId = req.user.id;
   Character.find({userId})
   .then(results => {
@@ -18,11 +18,11 @@ router.get('/', (req, res, next) => {
 
 })
 
-router.get('/:name', (req, res, next) => {
-  const { name } = req.params;
+router.get('/:id', (req, res, next) => {
+  const  {id}  = req.params;
   const userId = req.user.id;
-
-  Character.findOne({ name, userId})
+  console.log("ID IS:******  ", id)
+  Character.findById(id)
     .then(result => {
       if (result) {
         res.json(result);
@@ -36,7 +36,7 @@ router.get('/:name', (req, res, next) => {
 });
 
 router.post('/', jsonParser, (req, res, next) => {
-  console.log("Post made it")
+console.log("Post made it")
  console.log(`This is req.user`, req.user )
  console.log("Body is: ", req.body)
 const { name, characterClass, race, level, Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma} = req.body;
@@ -64,10 +64,11 @@ return Character.create(insertObject)
   });
 });
 
-router.put('/:name', jsonParser, (req, res, next) => {
-  const { name } = req.params;
+router.put('/:id', jsonParser, (req, res, next) => {
+  const { id } = req.params;
   const userId = req.user.id;
-  console.log("Post made it")
+  console.log("Put made it")
+
   const toUpdate = {};
   const updateableFields = ["characterClass", "race", "level", "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"];
   updateableFields.forEach(field => {
@@ -75,10 +76,10 @@ router.put('/:name', jsonParser, (req, res, next) => {
       toUpdate[field] = req.body[field];
     }
 
-return Character.findOneAndUpdate({name, userId}, toUpdate, { new: true })
+return Character.findByIdAndUpdate(id, toUpdate, { new: true })
 .then(result => {
   console.log(result)
-  return res.status(201).json(result);
+  return res.json(result);
   })
   .catch(err => {
     next(err);
@@ -88,10 +89,11 @@ return Character.findOneAndUpdate({name, userId}, toUpdate, { new: true })
 
 })
 
-router.delete('/:name', (req, res, next) => {
-  const { name } = req.params;
+router.delete('/:id', (req, res, next) => {
+  const { id } = req.params;
+  console.log("id is: ", id)
   const userId = req.user.id
-  Character.findOneAndDelete({name, userId})
+  Character.findByIdAndDelete(id)
   .then(() => {
     res.sendStatus(204);
   })
