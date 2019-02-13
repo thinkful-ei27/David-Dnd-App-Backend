@@ -43,7 +43,13 @@ router.post('/', jsonParser, (req, res, next) => {
 console.log("Post made it")
  console.log(`This is req.user`, req.user )
  console.log("Body is: ", req.body)
-const { name, characterClass, race, level, Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma} = req.body;
+ let UID;
+const { name, characterClass, race, level, Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma, userId} = req.body;
+if (req.user.id) {
+  UID = req.user.id;
+} else {
+  UID = userId;
+}
 const insertObject = {
   name,
   characterClass,
@@ -55,7 +61,7 @@ const insertObject = {
   Intelligence,
   Wisdom,
   Charisma,
-  userId: req.user.id
+  userId: UID 
 }
 console.log(insertObject)
 

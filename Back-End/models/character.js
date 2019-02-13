@@ -14,7 +14,6 @@ const characterSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
 });
  
-characterSchema.index({ name: 1, userId: 1 }, { unique: true })
 characterSchema.set('toJSON', {
   virtuals: true,
   transform: (doc, result) => {

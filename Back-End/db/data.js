@@ -9,7 +9,8 @@ const characters = [
     "Constitution": "10",
     "Intelligence": "10",
     "Wisdom": "10",
-    "Charisma": "10"
+    "Charisma": "10",
+    "userId": "5c644be63ad65a181caa27f2"
   },
   {
     "name": "Test Character Two",
@@ -21,24 +22,18 @@ const characters = [
     "Constitution": "9",
     "Intelligence": "16",
     "Wisdom": "12",
-    "Charisma": "13"
+    "Charisma": "13",
+    "userId": "5c644be63ad65a181caa27f2"
   }
 ]
-const users = [
-  {
-    "username": "NewUser",
-    "password": "password123",
-    "firstName" : "David",
-    "lastName" : "Johnson"
-  },
-  {
-    "username": "CoolUser",
-    "password": "password123",
-    "firstName" : "No",
-    "lastName" : "One"
+const users = {
+    "username": "Test",
+    "password": "testtester",
+    "firstName": "Test",
+    "lastName": "Tester"
   }
 
-]
+
 
 
 

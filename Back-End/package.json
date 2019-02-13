@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cross-env NODE_ENV=tests mocha --timeout 15000",
     "start": "node server.js"
   },
   "author": "",
@@ -15,10 +15,14 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "cors": "^2.8.5",
+    "cross-env": "^5.2.0",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
+    "mocha": "^5.2.0",
     "mongoose": "^5.4.9",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
