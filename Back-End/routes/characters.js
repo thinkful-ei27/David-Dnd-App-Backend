@@ -5,11 +5,15 @@ const Character = require('../models/character');
 const router = express.Router();
 const jsonParser = bodyParser.json();
 
+function wait(time) {return new Promise(resolve => setTimeout(resolve, time));}
+// router.use((req, res, next) => setTimeout(next, 3000));
+
 router.get('/', jsonParser, (req, res, next) => {
-  const userId = req.user.id;
+  
+  const userId = req.user.id; 
+
   Character.find({userId})
   .then(results => {
-    console.log(results)
     res.json(results);
   })
   .catch(err => {
@@ -67,7 +71,7 @@ return Character.create(insertObject)
 router.put('/:id', jsonParser, (req, res, next) => {
   const { id } = req.params;
   const userId = req.user.id;
-  console.log("Put made it")
+  console.log("req body is: ", req.body)
 
   const toUpdate = {};
   const updateableFields = ["characterClass", "race", "level", "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"];
@@ -75,16 +79,15 @@ router.put('/:id', jsonParser, (req, res, next) => {
     if (field in req.body) {
       toUpdate[field] = req.body[field];
     }
-
-return Character.findByIdAndUpdate(id, toUpdate, { new: true })
-.then(result => {
-  console.log(result)
-  return res.json(result);
+  });
+  return Character.findByIdAndUpdate(id, toUpdate, { new: true })
+  .then(result => {
+    console.log("New Result SHOULD BE:", result)
+    return res.json(result);
   })
   .catch(err => {
     next(err);
   });
-});
 
 
 })
